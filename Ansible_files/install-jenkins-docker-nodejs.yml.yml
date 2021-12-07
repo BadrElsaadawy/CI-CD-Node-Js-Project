@@ -1,0 +1,40 @@
+---
+- hosts: jenkinsservers
+  tasks:
+    - name: add key of jenkins
+      apt_key: url=https://pkg.jenkins.io/debian/jenkins.io.key state=present
+
+    - name: install python-apt
+      apt: name=python-ap state=present
+
+    - name: add repo of jenkins
+      apt_repository: repo='deb http://pkg.jenkins.io/debian-stable binary/'
+
+    - name: update
+      apt:
+        update_cache: yes
+
+    - name: install java
+      apt: name=openjdk-11-jdk state=present
+
+    - name: install jenkins
+      apt: name=jenkins state=present update_cache=yes
+    - name: start jenkins
+      service: name=jenkins state=started
+
+    - name: install nodejs
+      apt: name=nodejs state=present
+
+    - name: update
+      apt:
+        update_cache: yes
+
+    - name: install npm
+      apt: name=npm state=present
+
+    - name: install docker
+      apt: name=docker.io state=present
+
+    - name: start docker
+      service: name=docker state=started
+
